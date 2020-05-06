@@ -1,0 +1,4 @@
+administer global_site_notifications configuration:
+  title: 'Administer global_site_notifications configuration'
+  description: 'Optional description.'
+  restrict access: true

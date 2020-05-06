@@ -1,0 +1,10 @@
+global_site_notifications.settings:
+  type: config_object
+  label: 'Global site notifications settings'
+  mapping:
+    alert_text:
+      label: 'Global Alert Text'
+      type: text
+    pages:
+      label: 'Pages to Hide Alert'
+      type: text

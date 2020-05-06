@@ -1,0 +1,6 @@
+# Global Site Notifications link.
+global_site_notifications.global_site_alert:
+  title: 'Global Site Alerts'
+  parent: system.admin_structure
+  description: 'Settings form for Global Site Alerts.'
+  route_name: global_site_notifications.global_site_alert

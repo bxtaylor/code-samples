@@ -1,0 +1,5 @@
+global_site_notifications.settings:
+  title: 'Global Site Alerts'
+  base_route_name: global_site_notifications.global_site_alert
+  names:
+    - global_site_notifications.settings

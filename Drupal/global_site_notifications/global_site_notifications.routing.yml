@@ -1,0 +1,7 @@
+global_site_notifications.global_site_alert:
+  path: '/admin/structure/overrides/global-site-alert'
+  defaults:
+    _title: 'Global Site Alert'
+    _form: 'Drupal\global_site_notifications\Form\GlobalSiteAlertSettingsForm'
+  requirements:
+    _permission: 'administer global_site_notifications configuration'

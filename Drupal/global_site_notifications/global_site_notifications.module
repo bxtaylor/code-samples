@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Global Site Notifications module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function global_site_notifications_page_attachments(array &$attachments) {
+  $config = \Drupal::config('global_site_notifications.settings');
+  $isAnonymous = \Drupal::currentUser()->isAnonymous();
+
+  if (!empty($config->get('enable_alert')) &&
+    $isAnonymous &&
+    !empty($config->get('alert_text')) &&
+    !global_site_notifications_page_evaluate()) {
+
+    $settings = [
+      'alert_text' => $config->get('alert_text'),
+      'alert_dismiss_text' => (!empty($config->get('dismiss_text'))) ? $config->get('dismiss_text') : t('Ok'),
+      'red_alert' => !empty($config->get('red_alert')),
+      'alert_disable_confirm_button' => !empty($config->get('alert_disable_confirm_button')),
+      'alert_position' => $config->get('alert_position'),
+    ];
+
+    $attachments['#attached']['drupalSettings']['global_site_notifications'] = $settings;
+    $attachments['#attached']['library'][] = 'global_site_notifications/global_alert';
+  }
+}
+
+/**
+ * Evaluate the page configuration settings.
+ *
+ * @return bool
+ *   Returns true if the path matches.
+ */
+function global_site_notifications_page_evaluate() {
+  $config = \Drupal::config('global_site_notifications.settings');
+  // Convert path to lowercase. This allows comparison of the same path
+  // with different case. Ex: /Page, /page, /PAGE.
+  $pages = mb_strtolower($config->get('pages'));
+  if (!$pages) {
+    return FALSE;
+  }
+
+  $request = \Drupal::request();
+  // Compare the lowercase path alias (if any) and internal path.
+  $path = \Drupal::service('path.current')->getPath($request);
+
+  // Do not trim a trailing slash if that is the complete path.
+  $path = $path === '/' ? $path : rtrim($path, '/');
+  $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path);
+  $path_alias = mb_strtolower($alias);
+
+  return \Drupal::service('path.matcher')->matchPath($path_alias, $pages) || (($path != $path_alias) && \Drupal::service('path.matcher')->matchPath($path, $pages));
+}

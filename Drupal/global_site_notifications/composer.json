@@ -1,0 +1,7 @@
+{
+  "name": "drupal/global_site_notifications",
+  "type": "drupal-module",
+  "description": "Drupal implementation of the cookie consent library.",
+  "minimum-stability": "dev",
+  "require": { }
+}

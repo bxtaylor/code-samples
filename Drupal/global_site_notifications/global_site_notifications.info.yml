@@ -1,0 +1,4 @@
+name: Global Site Notifications
+type: module
+description: Global Site Notifications display the notifications at the site so that we keep the customer informed.
+core: 8.x

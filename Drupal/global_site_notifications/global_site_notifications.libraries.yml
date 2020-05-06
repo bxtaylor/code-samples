@@ -1,0 +1,8 @@
+# For Global Site Alert.
+global_alert:
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css: {type: external}
+  js:
+    https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js: {type: external}
+    js/global-alert.js: {}
