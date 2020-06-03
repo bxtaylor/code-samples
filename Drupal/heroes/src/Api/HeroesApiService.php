@@ -6,34 +6,39 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Http\ClientFactory;
 
+/**
+ * Class HeroesApiService.
+ *
+ * @package Drupal\heroes\Api
+ */
 class HeroesApiService {
 
   /**
    * HTTP Client factory.
    *
-   * @var ClientFactory $http_client_factory
+   * @var \Drupal\Core\Http\ClientFactory
    */
-  protected $http_client_factory;
+  protected $client;
 
   /**
    * The config factory.
    *
-   * @var ConfigFactoryInterface $configFactory
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
 
   /**
-   * HeroApiService constructor
+   * HeroApiService constructor.
    *
-   * @param ClientFactory $http_client_factory
+   * @param \Drupal\Core\Http\ClientFactory $http_client_factory
    *   Http client factory.
-   * @param ConfigFactoryInterface $configFactory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config factory.
    */
   public function __construct(ClientFactory $http_client_factory, ConfigFactoryInterface $configFactory) {
     $this->configFactory = $configFactory->get('heroes');
-    $this->http_client_factory = $http_client_factory->fromOptions([
-      'base_uri' => 'https://superheroapi.com/'
+    $this->client = $http_client_factory->fromOptions([
+      'base_uri' => 'https://superheroapi.com/',
     ]);
   }
 
@@ -42,11 +47,13 @@ class HeroesApiService {
    *
    * @param string $query
    *   The name of the superhero to search.
+   *
    * @return array
    *   JSON decoded response from the Superhero API.
    */
   public function search(string $query) {
-    $response = $this->http_client_factory->get('/api/' . $this->configFactory->get('access_token') . '/search/' . $query);
+    $response = $this->client->get('/api/' . $this->configFactory->get('access_token') . '/search/' . $query);
+    // @todo handle empty responses and errors here so the React app can catch errors correctly.
     return Json::decode($response->getBody());
   }
 
