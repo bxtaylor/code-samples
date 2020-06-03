@@ -15,5 +15,3 @@ heroes.search:
   methods: [GET]
   requirements:
     _permission: 'administer content'
-
-
