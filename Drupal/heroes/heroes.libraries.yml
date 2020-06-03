@@ -1,0 +1,6 @@
+heroes_app:
+  version: VERSION
+  js:
+    js/dist/index.min.js: { minified: true }
+  dependencies:
+    - core/drupalSettings

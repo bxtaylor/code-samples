@@ -1,0 +1,4 @@
+services:
+  heroes.api:
+    class: Drupal\heroes\Api\HeroesApiService
+    arguments: ['@http_client_factory', '@config.factory']

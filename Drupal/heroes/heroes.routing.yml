@@ -1,0 +1,19 @@
+# Page Controller
+heroes.content:
+  path: '/heroes'
+  defaults:
+    _controller: '\Drupal\heroes\Controller\HeroesController::content'
+    _title: 'Heroes'
+  requirements:
+    _permission: 'access content'
+
+# API Service Controller
+heroes.search:
+  path: 'api/heroes/search/{name}'
+  defaults:
+    _controller: '\Drupal\heroes\Controller\HeroesApiController::search'
+  methods: [GET]
+  requirements:
+    _permission: 'administer content'
+
+

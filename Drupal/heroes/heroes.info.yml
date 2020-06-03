@@ -1,0 +1,5 @@
+name: Heroes Module
+description: 'Displays heroes from a Heroes API.'
+type: module
+core: 8.x
+package: Custom
